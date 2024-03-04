@@ -6,26 +6,20 @@
 /*   By: agorski <agorski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 19:41:14 by agorski           #+#    #+#             */
-/*   Updated: 2024/02/29 14:44:06 by agorski          ###   ########.fr       */
+/*   Updated: 2024/03/02 16:00:09 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include <stddef.h>
 
 void	*ft_memset(void *s, int c, size_t n)
 {
-	while (s <= n)
+	void	*orgin_s;
+
+	orgin_s = s;
+	while (n--)
 	{
-		s = c;
-		s++;
+		*((unsigned char *)s++) = (unsigned char)c;
 	}
-	return (s);
-}
-
-void	main(int)
-{
-	char	*s;
-
-	ft_memset(*s, 'a', 10);
-	printf("ft_memset %s", ft_memset);
+	return (orgin_s);
 }

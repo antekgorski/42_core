@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_isdigit_test.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agorski <agorski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/28 17:30:39 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/02 15:59:10 by agorski          ###   ########.fr       */
+/*   Created: 2024/02/27 17:07:50 by agorski           #+#    #+#             */
+/*   Updated: 2024/03/02 15:57:05 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(char *str)
-{
-	int	i;
+#include <ctype.h>
+#include <stdio.h>
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+int	ft_isdigit(int c);
+
+int	main(void)
+{
+	for (int i = 0; i <= 255; i++)
+	{
+		char c = (char)i;
+		if (ft_isdigit(c) != isdigit(c))
+		{
+			printf("error: fot char '%c' (%d), ft_isdigit returns%d,a isdigit returns %d\n", c, i, ft_isdigit(c), isdigit(c));
+		}
+	}
+
+	printf("test done.\n");
+
+	return (0);
 }

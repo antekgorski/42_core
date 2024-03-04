@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_isalpha_test.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agorski <agorski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/28 17:30:39 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/02 15:59:10 by agorski          ###   ########.fr       */
+/*   Created: 2024/02/26 16:17:29 by agorski           #+#    #+#             */
+/*   Updated: 2024/03/01 18:48:04 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(char *str)
-{
-	int	i;
+#include <ctype.h>
+#include <stdio.h>
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+int	ft_isalpha(int c);
+
+int	main(void)
+{
+	for (int i = 0; i <= 255; i++)
+	{
+		unsigned char c = (unsigned char)i;
+		if (ft_isalpha(c) != isalpha(c))
+		{
+			printf("Error: for sign '%c' (%d),ft_isalpha return (%d),a isalpha return (%d)\n", c, i,ft_isalpha(c), isalpha(c));
+		}
+	}
+
+	printf("Test done.\n");
+
+	return (0);
 }

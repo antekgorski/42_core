@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agorski <agorski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/28 17:30:39 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/02 15:59:10 by agorski          ###   ########.fr       */
+/*   Created: 2024/03/02 20:50:12 by agorski           #+#    #+#             */
+/*   Updated: 2024/03/02 21:00:18 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(char *str)
-{
-	int	i;
+#include <string.h>
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+void	*memcpy(void *dest, const void *src, size_t n)
+{
+    
 }
