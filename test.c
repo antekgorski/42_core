@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agorski <agorski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/28 19:41:14 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/06 15:12:28 by agorski          ###   ########.fr       */
+/*   Created: 2024/03/06 11:14:41 by agorski           #+#    #+#             */
+/*   Updated: 2024/03/06 11:14:44 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	*ft_memset(void *s, int c, unsigned int n)
-{
-	void	*temp_s;
+#include <string.h>
 
-	temp_s = s;
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	void	*orgin_d;
+
+	orgin_d = dest;
 	while (n--)
 	{
-		*((unsigned char *)temp_s++) = (unsigned char)c;
+		*((unsigned char *)dest++) = *((unsigned char *)src++);
 	}
-	return (s);
+	return (orgin_d);
 }

@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agorski <agorski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/28 19:41:14 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/06 15:12:28 by agorski          ###   ########.fr       */
+/*   Created: 2024/03/06 16:10:23 by agorski           #+#    #+#             */
+/*   Updated: 2024/03/06 17:29:56 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	*ft_memset(void *s, int c, unsigned int n)
+unsigned int	ft_strlcat(char *dst, const char *src, unsigned int size)
 {
-	void	*temp_s;
+	char	*dst_temp;
+	char	*src_temp;
 
-	temp_s = s;
-	while (n--)
+	dst_temp = dst;
+	src_temp = src;
+	while (dst_temp++)
+		;
+	while (src_temp)
 	{
-		*((unsigned char *)temp_s++) = (unsigned char)c;
-	}
-	return (s);
+        *dst_temp++ = *src_temp++
+    }
+    *dst_temp = '\0';
+    return ()
 }

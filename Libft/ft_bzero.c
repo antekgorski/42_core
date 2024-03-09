@@ -6,13 +6,11 @@
 /*   By: agorski <agorski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 18:16:02 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/02 20:49:17 by agorski          ###   ########.fr       */
+/*   Updated: 2024/03/06 15:11:02 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <strings.h>
-
-void	ft_bzero(void *s, size_t n)
+void	ft_bzero(void *s, unsigned int n)
 {
 	void	*orgin_s;
 
