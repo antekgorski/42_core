@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agorski <agorski@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 18:24:01 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/06 19:03:11 by agorski          ###   ########.fr       */
+/*   Updated: 2024/03/11 19:08:49 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_isdigit(int c);
 int	ft_isalnum(int c);
 int	ft_isascii(int c);
 int	ft_isprint(int c);
-int	ft_strlen(char *str);
+int	ft_strlen(const char *str);
 void	*ft_memset(void *s, int c, unsigned int n);
 void	ft_bzero(void *s, unsigned int n);
 void	*ft_memcpy(void *dest, const void *src, unsigned int n);
