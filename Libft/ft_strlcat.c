@@ -6,16 +6,16 @@
 /*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 07:45:44 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/14 15:31:49 by agorski          ###   ########.fr       */
+/*   Updated: 2024/03/14 18:01:14 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-unsigned int	ft_strlcat(char *dst, const char *src, unsigned int size)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	unsigned int	dst_len;
-	unsigned int	src_len;
+	size_t	dst_len;
+	size_t	src_len;
 
 	dst_len = ft_strlen(dst);
 	src_len = ft_strlen(src);
@@ -30,15 +30,3 @@ unsigned int	ft_strlcat(char *dst, const char *src, unsigned int size)
 	}
 	return (dst_len + src_len);
 }
-
-// //size >> Bufor
-// char	*dst_temp;
-// char	*src_temp;
-// dst_temp = dst;
-// src_temp = src;
-// while (dst_temp++)
-// 	;
-// while (src_temp)
-// 	*dst_temp++ = *src_temp++;
-// *dst_temp = '\0';
-// return ();

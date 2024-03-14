@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-
-void	ft_bzero(void *s, size_t n);
+#include "libft.h"
 
 int	main(void)
 {

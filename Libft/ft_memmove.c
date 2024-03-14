@@ -6,14 +6,16 @@
 /*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:51:59 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/13 18:48:23 by agorski          ###   ########.fr       */
+/*   Updated: 2024/03/14 17:58:30 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	*ft_memmove(void *dest, const void *src, unsigned int n)
+#include "libft.h"
+
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	char		*dest_temp;
-	const char	*src_temp;
+	char *dest_temp;
+	const char *src_temp;
 
 	dest_temp = dest;
 	src_temp = src;
