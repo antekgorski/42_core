@@ -6,7 +6,7 @@
 /*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 18:16:02 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/14 14:27:29 by agorski          ###   ########.fr       */
+/*   Updated: 2024/03/14 14:29:46 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,3 +17,4 @@ void	ft_bzero(void *s, unsigned int n)
 		*(unsigned char *)s = '\0';
 	}
 }
+//test
