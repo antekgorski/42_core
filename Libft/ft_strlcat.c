@@ -6,7 +6,7 @@
 /*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 07:45:44 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/14 18:01:14 by agorski          ###   ########.fr       */
+/*   Updated: 2024/03/17 22:56:02 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	size_t	dst_len;
 	size_t	src_len;
 
+	if (size == 0)
+		return (ft_strlen(src));
 	dst_len = ft_strlen(dst);
 	src_len = ft_strlen(src);
 	if (dst_len >= size)

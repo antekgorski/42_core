@@ -1,36 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/06 13:10:02 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/17 22:52:37 by agorski          ###   ########.fr       */
+/*   Created: 2024/03/15 10:55:54 by agorski           #+#    #+#             */
+/*   Updated: 2024/03/15 15:55:01 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dest, char *src, size_t size)
+char	*ft_strrchr(const char *s, int c)
 {
-	int	i;
+	const char	*last_occurrence;
 
-	i = 0;
-	if (size == 0)
+	last_occurrence = s;
+	while (*s++ != '\0')
 	{
-		while (*(src + i))
-			i++;
-		return (i);
+		if (*s == c)
+			last_occurrence = s;
 	}
-	while (*(src + i) && --size)
-	{
-		*dest++ = *(src + i++);
-	}
-	*dest = '\0';
-	while (*(src + i))
-	{
-		++i;
-	}
-	return (i);
+	if (*last_occurrence != c && c != '\0')
+		return (NULL);
+	return ((char *)last_occurrence);
 }

@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/06 13:10:02 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/17 22:52:37 by agorski          ###   ########.fr       */
+/*   Created: 2024/03/17 15:12:10 by agorski           #+#    #+#             */
+/*   Updated: 2024/03/17 22:32:47 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-size_t	ft_strlcpy(char *dest, char *src, size_t size)
+int	ft_atoi(const char *nptr)
 {
-	int	i;
+	int	sign;
+	int	num;
 
-	i = 0;
-	if (size == 0)
+	num = 0;
+	sign = 1;
+	while (*nptr > 0 && *nptr <= 32)
+		nptr++;
+	if (*nptr == '+' || *nptr == '-')
 	{
-		while (*(src + i))
-			i++;
-		return (i);
+		if (*nptr == '-')
+			sign *= -1;
+		nptr++;
 	}
-	while (*(src + i) && --size)
+	while (*nptr >= 48 && *nptr <= 57)
 	{
-		*dest++ = *(src + i++);
+		num *= 10;
+		num += (*nptr - 48);
+		nptr++;
 	}
-	*dest = '\0';
-	while (*(src + i))
-	{
-		++i;
-	}
-	return (i);
+	num *= sign;
+	return (num);
 }

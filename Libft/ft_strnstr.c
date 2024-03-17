@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/06 13:10:02 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/17 22:52:37 by agorski          ###   ########.fr       */
+/*   Created: 2024/03/15 23:56:49 by agorski           #+#    #+#             */
+/*   Updated: 2024/03/17 15:04:22 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dest, char *src, size_t size)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	if (size == 0)
+	if ((big == NULL) && (len == 0))
+		return (NULL);
+	if (*little == '\0')
+		return ((char *)big);
+	while (*big && len)
 	{
-		while (*(src + i))
+		while (*(little + i) == *(big + i) && i <= len && *(little + i))
+		{
+			if (*(little + i + 1) == '\0')
+				return ((char *)big);
 			i++;
-		return (i);
+		}
+		big++;
+		len--;
 	}
-	while (*(src + i) && --size)
-	{
-		*dest++ = *(src + i++);
-	}
-	*dest = '\0';
-	while (*(src + i))
-	{
-		++i;
-	}
-	return (i);
+	return (NULL);
 }

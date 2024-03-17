@@ -1,36 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/06 13:10:02 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/17 22:52:37 by agorski          ###   ########.fr       */
+/*   Created: 2024/03/15 23:05:30 by agorski           #+#    #+#             */
+/*   Updated: 2024/03/15 23:34:55 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dest, char *src, size_t size)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	int	i;
+	unsigned char	*exts1;
+	unsigned char	*exts2;
 
-	i = 0;
-	if (size == 0)
+	exts1 = (unsigned char *)s1;
+	exts2 = (unsigned char *)s2;
+	while (n != 0)
 	{
-		while (*(src + i))
-			i++;
-		return (i);
+		if (*exts1 != *exts2)
+		{
+			return (*exts1 - *exts2);
+		}
+		exts1++;
+		exts2++;
+		n--;
 	}
-	while (*(src + i) && --size)
-	{
-		*dest++ = *(src + i++);
-	}
-	*dest = '\0';
-	while (*(src + i))
-	{
-		++i;
-	}
-	return (i);
+	return (0);
 }

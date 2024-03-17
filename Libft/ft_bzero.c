@@ -6,7 +6,7 @@
 /*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 18:16:02 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/14 16:54:41 by agorski          ###   ########.fr       */
+/*   Updated: 2024/03/17 22:41:11 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 void	ft_bzero(void *s, size_t n)
 {
+	unsigned char	*del;
+
+	del = (unsigned char *)s;
 	while (n--)
 	{
-		*(unsigned char *)s = '\0';
+		*del = '\0';
+		del++;
 	}
 }
