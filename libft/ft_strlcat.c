@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/15 23:05:30 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/15 23:34:55 by agorski          ###   ########.fr       */
+/*   Created: 2024/03/11 07:45:44 by agorski           #+#    #+#             */
+/*   Updated: 2024/03/19 02:01:33 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	unsigned char	*exts1;
-	unsigned char	*exts2;
+	size_t	dst_len;
+	size_t	src_len;
 
-	exts1 = (unsigned char *)s1;
-	exts2 = (unsigned char *)s2;
-	while (n != 0)
+	if (size == 0)
+		return (ft_strlen(src));
+	dst_len = ft_strlen(dst);
+	src_len = ft_strlen(src);
+	if (dst_len >= size)
+		return (src_len + size);
+	if (src_len < size - dst_len)
+		ft_memcpy(dst + dst_len, src, src_len + 1);
+	else
 	{
-		if (*exts1 != *exts2)
-		{
-			return (*exts1 - *exts2);
-		}
-		exts1++;
-		exts2++;
-		n--;
+		ft_memcpy(dst + dst_len, src, size - dst_len - 1);
+		dst[size - 1] = '\0';
 	}
-	return (0);
+	return (dst_len + src_len);
 }

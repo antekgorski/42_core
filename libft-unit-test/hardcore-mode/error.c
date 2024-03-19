@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
+/*   By: inyancat <inyancat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/02 20:50:12 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/14 17:43:12 by agorski          ###   ########.fr       */
+/*   Created  2016/11/11 16:47:32 by inyancat          #+#    #+#             */
+/*   Updated  2016/11/12 20:21:42 by inyancat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "utils.h"
+#include <stdarg.h>
+extern int g_log_fd;
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+void error(int code, int a, const char *pattern, ...)
 {
-	char		*dest_temp;
-	const char	*src_temp;
+	va_list	va;
 
-	dest_temp = dest;
-	src_temp = src;
-	while (n--)
-	{
-		*dest_temp++ = *src_temp++;
-	}
-	return (dest);
+	va_start(va, pattern);
+	(void)a;
+	vdprintf(g_log_fd, pattern, va);
+	dprintf(g_log_fd, "\n");
+	va_end(va);
+	exit(code);
 }

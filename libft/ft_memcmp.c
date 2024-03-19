@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/04 17:51:59 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/14 22:09:59 by agorski          ###   ########.fr       */
+/*   Created: 2024/03/15 23:05:30 by agorski           #+#    #+#             */
+/*   Updated: 2024/03/18 22:58:07 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	char		*dest_temp;
-	const char	*src_temp;
+	const unsigned char	*exts1;
+	const unsigned char	*exts2;
 
-	dest_temp = dest;
-	src_temp = src;
-	if (dest < src)
+	exts1 = (const unsigned char *)s1;
+	exts2 = (const unsigned char *)s2;
+	while (n != 0)
 	{
-		while (n--)
-			*dest_temp++ = *src_temp++;
+		if (*exts1 != *exts2)
+		{
+			return (*exts1 - *exts2);
+		}
+		exts1++;
+		exts2++;
+		n--;
 	}
-	else
-	{
-		dest_temp = dest_temp + (n - 1);
-		src_temp += (n - 1);
-		while (n--)
-			*dest_temp-- = *src_temp--;
-	}
-	return (dest);
+	return (0);
 }

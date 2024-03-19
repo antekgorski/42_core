@@ -19,12 +19,15 @@ $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) -c $< -o $@		# *.o files create from *.c \n
 
 clean:
-	rm -f *.o		# remove .o files
+	rm -f *.o	    # remove .o files
 
 fclean: clean
-	rm -f $(NAME)		# remove .o files and libft.a
+	rm -f $(NAME)    # remove .o files and libft.a
 
 re: fclean all		# remove .o files and libft.a after compile agen
 
 test:
 	nm $(NAME)			# showing what is archive in libft.a
+so:
+	 $(CC) -nostartfiles -fPIC $(CFLAGS) $(SRC)
+	gcc -nostartfiles -shared -o libft.so $(OBJ)

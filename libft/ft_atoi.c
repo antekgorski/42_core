@@ -6,7 +6,7 @@
 /*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 15:12:10 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/17 22:32:47 by agorski          ###   ########.fr       */
+/*   Updated: 2024/03/19 02:06:17 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	ft_atoi(const char *nptr)
 
 	num = 0;
 	sign = 1;
-	while (*nptr > 0 && *nptr <= 32)
+	while (*nptr == ' ' || *nptr == '\n' || *nptr == '\t' ||
+        *nptr == '\v' || *nptr == '\f' || *nptr == '\r')
 		nptr++;
 	if (*nptr == '+' || *nptr == '-')
 	{
