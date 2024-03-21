@@ -6,25 +6,44 @@
 /*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:41:26 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/20 18:04:20 by agorski          ###   ########.fr       */
+/*   Updated: 2024/03/21 15:05:27 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
+static int	ft_set_in_s(const char *set, char c)
+{
+	if (ft_strchr(set, (int)c))
+		return (1);
+	else
+		return (0);
+}
+
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char *trimedstr;
+	char	*trimedstr;
+	size_t	begin;
+	size_t	fin;
+	size_t	i;
 
-	unsigned int i;
-    unsigned int j;
-    
-    j = 0;
-	i = 0;
-	while (*(s1 + i))
+	if (!s1 || !set)
+		return(NULL);
+	fin = 0;
+	begin = 0;
+	while (*(s1 + begin) && ft_set_in_s(set, *(s1 + begin)))
 	{
-        if(*(s1 + j) == (set + i))
-        {
-            /* code */
-        }   
-		i++;
+		begin++;
 	}
+	fin = ft_strlen(s1);
+	while ((fin > begin) && ft_set_in_s(set, *(s1 + (fin - 1))))
+		fin--;
+	trimedstr = (char *)malloc(sizeof(*s1) * (fin - begin + 1));
+	if (trimedstr == NULL)
+		return (NULL);
+	i = 0;
+	while (fin > begin)
+		*(trimedstr + i++) = *(s1 + begin++);
+	*(trimedstr + i) = '\0';
+	return (trimedstr);
 }

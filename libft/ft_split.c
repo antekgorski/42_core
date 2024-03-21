@@ -1,25 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agorski <agorski@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/06 11:14:41 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/06 11:14:44 by agorski          ###   ########.fr       */
+/*   Created: 2024/03/21 15:07:58 by agorski           #+#    #+#             */
+/*   Updated: 2024/03/21 15:09:00 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+char **ft_split(char const *s, char c)
 {
-	void	*orgin_d;
-
-	orgin_d = dest;
-	while (n--)
-	{
-		*((unsigned char *)dest++) = *((unsigned char *)src++);
-	}
-	return (orgin_d);
+    
 }

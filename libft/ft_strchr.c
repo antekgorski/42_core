@@ -6,7 +6,7 @@
 /*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 08:17:41 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/17 23:01:50 by agorski          ###   ########.fr       */
+/*   Updated: 2024/03/21 11:28:25 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char	*ft_strchr(const char *s, int c)
 		else
 			s++;
 	}
-	if (c != '\0')
+	if (*s == c)
+		return ((char *)s);
+	else
 		return (NULL);
-	return ((char *)s);
 }
