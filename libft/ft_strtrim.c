@@ -6,7 +6,7 @@
 /*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:41:26 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/21 15:05:27 by agorski          ###   ########.fr       */
+/*   Updated: 2024/03/27 23:28:01 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	size_t	i;
 
 	if (!s1 || !set)
-		return(NULL);
+		return (NULL);
 	fin = 0;
 	begin = 0;
 	while (*(s1 + begin) && ft_set_in_s(set, *(s1 + begin)))

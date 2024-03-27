@@ -6,7 +6,7 @@
 /*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 15:07:58 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/27 18:24:39 by agorski          ###   ########.fr       */
+/*   Updated: 2024/03/27 23:37:39 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,27 @@ static char	**ft_words_alloc(char const *s, char c, char **split)
 	start_word = -1;
 	index = 0;
 	word_index = 0;
-	while (s[i] != '\0')
+	while (s[index] != '\0')
 	{
 		if (start_word == -1 && s[index] != c)
 			start_word = index;
-		if (start_word != -1 && s[index] == c)
+		if (start_word != -1 && (s[index] == c || s[index + 1] == '\0'))
 		{
 			word = malloc(sizeof(char) * (index - start_word + 1));
 			if (word == NULL)
 				return (NULL);
 			while (start_word < index)
 			{
-				word[i] = s[start_word];
-				start_word++;
-				i++;
+				word[i++] = s[start_word++];
 			}
-			split[word_index] = word;
+			word[i] = '\0';
+			i = 0;
+			split[word_index++] = word;
 			start_word = -1;
 		}
 		index++;
 	}
+	split[word_index] = NULL;
 	return (split);
 }
 
@@ -69,13 +70,10 @@ char	**ft_split(char const *s, char c)
 {
 	char	**split;
 
+	if (s == NULL)
+		return (NULL);
 	split = (malloc)((ft_number_of_words(s, c) + 1) * (sizeof(char *)));
 	if (split == NULL)
 		return (NULL);
-	//**ft_words_alloc(s, c, split);
 	return (ft_words_alloc(s, c, split));
 }
-// main()
-// {
-// ft_split("1 22 333 4444 55555 666666", ' ');
-// }

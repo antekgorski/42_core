@@ -6,7 +6,7 @@
 /*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 16:04:22 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/20 12:38:48 by agorski          ###   ########.fr       */
+/*   Updated: 2024/03/27 23:29:32 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
+	char	*substr;
+
 	if (s == NULL)
 		return (NULL);
-	char *substr;
 	if (start > ft_strlen(s))
 		return (ft_strdup(""));
 	if (len > ft_strlen(s) - start)

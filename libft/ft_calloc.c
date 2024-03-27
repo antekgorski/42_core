@@ -6,7 +6,7 @@
 /*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 12:44:19 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/19 14:16:27 by agorski          ###   ########.fr       */
+/*   Updated: 2024/03/27 23:27:09 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
-	void *ptr;
+	void	*ptr;
+
 	if (nmemb && SIZE_MAX / nmemb < size)
 	{
 		return (NULL);
