@@ -6,12 +6,46 @@
 /*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 15:07:58 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/26 21:37:40 by agorski          ###   ########.fr       */
+/*   Updated: 2024/03/27 18:24:39 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
+
+static char	**ft_words_alloc(char const *s, char c, char **split)
+{
+	int		i;
+	int		start_word;
+	int		index;
+	int		word_index;
+	char	*word;
+
+	i = 0;
+	start_word = -1;
+	index = 0;
+	word_index = 0;
+	while (s[i] != '\0')
+	{
+		if (start_word == -1 && s[index] != c)
+			start_word = index;
+		if (start_word != -1 && s[index] == c)
+		{
+			word = malloc(sizeof(char) * (index - start_word + 1));
+			if (word == NULL)
+				return (NULL);
+			while (start_word < index)
+			{
+				word[i] = s[start_word];
+				start_word++;
+				i++;
+			}
+			split[word_index] = word;
+			start_word = -1;
+		}
+		index++;
+	}
+	return (split);
+}
 
 static int	ft_number_of_words(char const *s, char c)
 {
@@ -33,17 +67,15 @@ static int	ft_number_of_words(char const *s, char c)
 
 char	**ft_split(char const *s, char c)
 {
-	int	word_number;
+	char	**split;
 
-	word_number = ft_number_of_words(s, c);
-	return (NULL);
+	split = (malloc)((ft_number_of_words(s, c) + 1) * (sizeof(char *)));
+	if (split == NULL)
+		return (NULL);
+	//**ft_words_alloc(s, c, split);
+	return (ft_words_alloc(s, c, split));
 }
-
-int	main(void)
-{
-	printf("%d\n", ft_number_of_words("a  a", ' '));
-	printf("%d\n", ft_number_of_words("  jeden   dwa trzy cztery    piec    ",
-			' '));
-
-	return (0);
-}
+// main()
+// {
+// ft_split("1 22 333 4444 55555 666666", ' ');
+// }
