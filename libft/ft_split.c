@@ -3,97 +3,325 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
+/*   By: agorski <agorski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 00:10:56 by agorski           #+#    #+#             */
-/*   Updated: 2024/03/28 00:13:26 by agorski          ###   ########.fr       */
+/*   Created: 2024/03/21 15:07:58 by agorski           #+#    #+#             */
+/*   Updated: 2024/03/28 19:31:03 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	ft_initvar(size_t *index, int *word_index, int *start_of_word)
+static char	*ft_fill_word(const char *s, int start_word, int index)
 {
-	*index = 0;
-	*word_index = 0;
-	*start_of_word = -1;
-}
-
-static void	*ft_free_words(char **words, int count)
-{
-	int	i;
-
-	i = 0;
-	while (i < count)
-		free(words[i++]);
-	free(words);
-	return (NULL);
-}
-
-static char	*ft_fill_word(const char *str, int start, int end)
-{
-	char	*word;
 	int		i;
+	char	*word;
 
 	i = 0;
-	word = malloc((end - start + 1) * sizeof(char));
-	if (!word)
+	word = malloc(sizeof(char) * (index - start_word + 1));
+	if (word == NULL)
 		return (NULL);
-	while (start < end)
+	while (start_word < index)
 	{
-		word[i] = str[start];
+		word[i] = s[start_word];
 		i++;
-		start++;
+		start_word++;
 	}
-	word[i] = 0;
+	word[i] = '\0';
 	return (word);
 }
 
-static int	ft_word_count(const char *str, char c)
+static char	**ft_words_alloc(char const *s, char c, char **split)
 {
-	int	count;
-	int	trigger;
+	int	start_word;
+	int	index;
+	int	word_index;
 
-	count = 0;
-	trigger = 0;
-	while (*str)
+	start_word = -1;
+	index = 0;
+	word_index = 0;
+	while (s[index] != '\0')
 	{
-		if (*str != c && trigger == 0)
+		int i;
+		if (start_word == -1 && s[index] != c)
+			start_word = index;
+		else if (ft_strchr(&s[index], c) == NULL && start_word != -1)
 		{
-			trigger = 1;
-			count++;
+			i = 0;
+			while (s[index] != '\0')
+			{	
+				split[word_index] = malloc(ft_strlen(&s[index]) * sizeof(char) + 1);
+				if (!split[word_index])
+					return (NULL);
+				split[word_index][i] = s[index];
+				i++;
+				index++;
+			}
+			split[word_index][i] = '\0';
 		}
-		else if (*str == c)
-			trigger = 0;
-		str++;
-	}
-	return (count);
-}
-
-char	**ft_split(const char *s, char c)
-{
-	char	**result;
-	size_t	index;
-	int		word_index;
-	int		start_of_word;
-
-	ft_initvar(&index, &word_index, &start_of_word);
-	result = ft_calloc((ft_word_count(s, c) + 1), sizeof(char *));
-	if (!result)
-		return (NULL);
-	while (index <= ft_strlen(s))
-	{
-		if (s[index] != c && start_of_word < 0)
-			start_of_word = index;
-		else if ((s[index] == c || index == ft_strlen(s)) && start_of_word >= 0)
+		else if (start_word != -1 && (s[index] == c || s[index + 1] == '\0'))
 		{
-			result[word_index] = ft_fill_word(s, start_of_word, index);
-			if (!(result[word_index]))
-				return (ft_free_words(result, word_index));
-			start_of_word = -1;
+			split[word_index] = ft_fill_word(s, start_word, index);
+			start_word = -1;
 			word_index++;
 		}
+		
 		index++;
 	}
-	return (result);
+	split[word_index] = NULL;
+	return (split);
+}
+
+static int	ft_number_of_words(char const *s, char c)
+{
+	size_t	i;
+	int		num;
+
+	num = 0;
+	i = 0;
+	if (*s != c && *s != '\0')
+		num++;
+	while (*(s + i) != '\0')
+	{
+		if (*(s + i) == c && *(s + i + 1) != c && *(s + i + 1) != '\0')
+			num++;
+		i++;
+	}
+	return (num);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**split;
+
+	if (s == NULL)
+		return (NULL);
+	split = (malloc)((ft_number_of_words(s, c) + 1) * (sizeof(char *)));
+	if (split == NULL)
+		return (NULL);
+	return (ft_words_alloc(s, c, split));
+}
+
+#include <stdio.h>
+int main ()
+{
+	char	**arr;
+	int		i;
+	char	c[] = "//dr/wal jda/cde/k 33dd/dd// 1/2  //";
+	char d = '/';
+	char	e[] = "dada";// a a 2
+	char	e1[] ="addaddda";//a a a 3
+	char	e2[] ="adddddadd";//a a 2
+	char	e3[] ="adddddaddad";//a a a 2
+	char	e4[] ="add";// a 0
+	char	e5[] ="dd";//0
+	char	e6[] ="d";//0
+	char	e7[] ="a";//0
+	char	e8[] = "da";// a
+	char	e9[] ="aada";//aa a 1
+	char	e10[] ="dda";//a 0
+	char	e11[] ="aaadd";//aaa  0
+	char	e12[] ="aaadda";//aaa a 1
+	char	e13[] ="";//0
+	char	e14[] ="ddad";//a 0
+	//char	e15[] =NULL;
+	char	e16[] ="ada";//a a 1
+	char	e17[] ="ddaddddaaaaddd";//a aaaa 1
+	char	e18[] ="ad";
+	char f = 'd';
+			 arr = ft_split(e10, f);
+	printf("%s\nORGINAL\n", e10);
+	//arr = ft_split("ddtripouilledd42dd", 'd');
+	i = 0;
+	//printf("%s  -arr[i] \n", arr[0]);
+	 while (arr[i] != NULL)
+	 {
+		printf("%s--\n%d number of rows\n", arr[i],i);
+		i++;
+	 }
+	// size_t i;
+	// char	d[] = "//dr/wal jda/cde/k 33dd/dd// 1/2  //";
+	// char c = '/';
+	//i = ft_split(d, c);
+	//printf("%ld i",ft_split(d, c));
+	f = 'd';
+			 arr = ft_split(e1, f);
+	printf("%s\nORGINAL\n", e1);
+	i = 0;
+	 while (arr[i] != NULL)
+	 {
+		printf("%s--\n%d number of rows\n", arr[i],i);
+		i++;
+	 }
+	 printf("///////////////////////////////////////\n");
+	f = 'd';
+			 arr = ft_split(e11, f);
+	printf("%s\nORGINAL\n", e11);
+	i = 0;
+	 while (arr[i] != NULL)
+	 {
+		printf("%s--\n%d number of rows\n", arr[i],i);
+		i++;
+	 }
+printf("///////////////////////////////////////\n");
+f = 'd';
+			 arr = ft_split(e12, f);
+	printf("%s\nORGINAL\n", e12);
+	i = 0;
+	 while (arr[i] != NULL)
+	 {
+		printf("%s--\n%d number of rows\n", arr[i],i);
+		i++;
+	 }
+printf("///////////////////////////////////////\n");
+f = 'd';
+			 arr = ft_split(e13, f);
+	printf("%s\nORGINAL\n", e13);
+	i = 0;
+	 while (arr[i] != NULL)
+	 {
+		printf("%s--\n%d number of rows\n", arr[i],i);
+		i++;
+	 }
+printf("///////////////////////////////////////\n");
+f = 'd';
+			 arr = ft_split(e14, f);
+	printf("%s\nORGINAL\n", e14);
+	i = 0;
+	 while (arr[i] != NULL)
+	 {
+		printf("%s--\n%d number of rows\n", arr[i],i);
+		i++;
+	 }
+printf("///////////////////////////////////////\n");
+f = 'd';
+			 arr = ft_split(e16, f);
+	printf("%s\nORGINAL\n", e16);
+	i = 0;
+	 while (arr[i] != NULL)
+	 {
+		printf("%s--\n%d number of rows\n", arr[i],i);
+		i++;
+	 }
+printf("///////////////////////////////////////\n");
+f = 'd';
+			 arr = ft_split(e17, f);
+	printf("%s\nORGINAL\n", e17);
+	i = 0;
+	 while (arr[i] != NULL)
+	 {
+		printf("%s--\n%d number of rows\n", arr[i],i);
+		i++;
+	 }
+printf("///////////////////////////////////////\n");
+f = 'd';
+			 arr = ft_split(e2, f);
+	printf("%s\nORGINAL\n", e2);
+	i = 0;
+	 while (arr[i] != NULL)
+	 {
+		printf("%s--\n%d number of rows\n", arr[i],i);
+		i++;
+	 }
+printf("///////////////////////////////////////\n");
+f = 'd';
+			 arr = ft_split(e3, f);
+	printf("%s\nORGINAL\n", e3);
+	i = 0;
+	 while (arr[i] != NULL)
+	 {
+		printf("%s--\n%d number of rows\n", arr[i],i);
+		i++;
+	 }
+printf("///////////////////////////////////////\n");
+f = 'd';
+			 arr = ft_split(e4, f);
+	printf("%s\nORGINAL\n", e4);
+	i = 0;
+	 while (arr[i] != NULL)
+	 {
+		printf("%s--\n%d number of rows\n", arr[i],i);
+		i++;
+	 }
+printf("///////////////////////////////////////\n");
+f = 'd';
+			 arr = ft_split(e5, f);
+	printf("%s\nORGINAL\n", e5);
+	i = 0;
+	 while (arr[i] != NULL)
+	 {
+		printf("%s--\n%d number of rows\n", arr[i],i);
+		i++;
+	 }
+printf("///////////////////////////////////////\n");
+f = 'd';
+			 arr = ft_split(e6, f);
+	printf("%s\nORGINAL\n", e6);
+	i = 0;
+	 while (arr[i] != NULL)
+	 {
+		printf("%s--\n%d number of rows\n", arr[i],i);
+		i++;
+	 }
+printf("///////////////////////////////////////\n");
+f = 'd';
+			 arr = ft_split(e7, f);
+	printf("%s\nORGINAL\n", e7);
+	i = 0;
+	 while (arr[i] != NULL)
+	 {
+		printf("%s--\n%d number of rows\n", arr[i],i);
+		i++;
+	 }
+printf("///////////////////////////////////////\n");
+f = 'd';
+			 arr = ft_split(e8, f);
+	printf("%s\nORGINAL\n", e8);
+	i = 0;
+	 while (arr[i] != NULL)
+	 {
+		printf("%s--\n%d number of rows\n", arr[i],i);
+		i++;
+	 }
+printf("///////////////////////////////////////\n");
+f = 'd';
+			 arr = ft_split(e9, f);
+	printf("%s\nORGINAL\n", e9);
+	i = 0;
+	 while (arr[i] != NULL)
+	 {
+		printf("%s--\n%d number of rows\n", arr[i],i);
+		i++;
+	 }
+	 printf("///////////////////////////////////////\n");
+f = 'd';
+			 arr = ft_split(e18, f);
+	printf("%s\nORGINAL\n", e18);
+	i = 0;
+	 while (arr[i] != NULL)
+	 {
+		printf("%s--\n%d number of rows\n", arr[i],i);
+		i++;
+	 }
+	 printf("///////////////////////////////////////\n");
+			arr = ft_split("//dr/wal jda/cde/k 33dd/dd// 1/2  //", ' ');
+	// printf("%s\nORGINAL\n", c);
+	i = 0;
+	 while (arr[i] != NULL)
+	 {
+		printf("%s--\n%d number of rows\n", arr[i],i);
+		i++;
+	 }
+	 printf("///////////////////////////////////////\n");
+	// arr = ft_split
+	// ("lorem ipsum dolor sit amet, consectetur
+	//  adipiscing elit. Sed non risus. Suspendisse", ' ');
+	//  while (arr[i] != NULL)
+	//  {
+	//  	printf("%s--\n%d number of rows\n", arr[0],i);
+	// 	i++;
+	//  }
+	//  printf("///////////////////////////////////////\n");
+printf("END\n");
+	return (0);
 }
