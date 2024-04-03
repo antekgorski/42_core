@@ -1,27 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/02 18:32:33 by agorski           #+#    #+#             */
-/*   Updated: 2024/04/02 23:07:59 by agorski          ###   ########.fr       */
+/*   Created: 2024/04/02 22:55:01 by agorski           #+#    #+#             */
+/*   Updated: 2024/04/02 23:08:52 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <unistd.h>
 
-void	ft_striteri(char *s, void (*f)(unsigned int, char *))
+static void	write_function(char c, int fd)
 {
-	size_t	i;
+	write(fd, &c, 1);
+}
 
-	i = 0;
-	if (s == NULL)
-		return ;
-	while (i < ft_strlen(s))
+void	ft_putnbr_fd(int n, int fd)
+{
+	if (n == -2147483648)
 	{
-		(*f)(i, &s[i]);
-		i++;
+		write_function('-', fd);
+		write_function('2', fd);
+		n = 147483648;
 	}
+	if (0 > n)
+	{
+		write_function('-', fd);
+		n *= (-1);
+	}
+	if (n >= 10)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
+	}
+	else
+		write_function(n + '0', fd);
 }

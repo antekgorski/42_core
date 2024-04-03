@@ -6,7 +6,7 @@
 /*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 15:07:58 by agorski           #+#    #+#             */
-/*   Updated: 2024/04/01 00:18:32 by agorski          ###   ########.fr       */
+/*   Updated: 2024/04/03 02:09:56 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,36 @@ static char	*ft_fill_word(const char *s, int start_word, int index)
 	return (word);
 }
 
+static int	to_many_line(char const *s, int index, int word_index, char **split)
+{
+	int	i;
+
+	i = 0;
+	while (s[index] != '\0')
+	{
+		split[word_index] = malloc(ft_strlen(&s[index]) * sizeof(char) + 1);
+		if (!split[word_index])
+		{
+			i = 0;
+			while (split[i])
+			{
+				free(split[i]);
+				i++;
+			}
+			free(split);
+			return (-20);
+		}
+		split[word_index][i++] = s[index++];
+	}
+	split[word_index][i] = '\0';
+	return (index);
+}
+
 static char	**ft_words_alloc(char const *s, char c, char **split,
 		int start_word)
 {
 	int	index;
 	int	word_index;
-	int	i;
 
 	index = 0;
 	word_index = 0;
@@ -46,16 +70,9 @@ static char	**ft_words_alloc(char const *s, char c, char **split,
 			start_word = index;
 		else if (ft_strchr(&s[index], c) == NULL && start_word != -1)
 		{
-			i = 0;
-			while (s[index] != '\0')
-			{
-				split[word_index] = malloc(ft_strlen(&s[index]) * sizeof(char)
-						+ 1);
-				if (!split[word_index])
-					return (NULL);
-				split[word_index][i++] = s[index++];
-			}
-			split[word_index][i] = '\0';
+			index = to_many_line(s, index, word_index, split);
+			if (index == -20)
+				return (NULL);
 		}
 		else if (start_word != -1 && (s[index] == c || s[index + 1] == '\0'))
 		{
@@ -64,7 +81,6 @@ static char	**ft_words_alloc(char const *s, char c, char **split,
 		}
 		index++;
 	}
-	split[word_index] = NULL;
 	return (split);
 }
 
@@ -97,5 +113,6 @@ char	**ft_split(char const *s, char c)
 	split = (malloc)((ft_nbr_words(s, c) + 1) * (sizeof(char *)));
 	if (split == NULL)
 		return (NULL);
+	split[ft_nbr_words(s, c)] = NULL;
 	return (ft_words_alloc(s, c, split, start_word));
 }
