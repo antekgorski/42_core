@@ -1,19 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/04 22:05:57 by agorski           #+#    #+#             */
-/*   Updated: 2024/04/06 23:26:20 by agorski          ###   ########.fr       */
+/*   Created: 2024/04/07 01:26:37 by agorski           #+#    #+#             */
+/*   Updated: 2024/04/07 01:26:57 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void ft_lstadd_front(t_list **lst, t_list *new)
-{
-    new->next = *lst;
-    *lst = new;
-}
+void	ft_lstclear(t_list **lst, void (*del)(void *));
