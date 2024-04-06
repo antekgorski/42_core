@@ -1,4 +1,7 @@
 {
     "42header.email": "agorski@student.42warsaw.pl",
-    "42header.username": "agorski"
+    "42header.username": "agorski",
+    "files.associations": {
+        "libft.h": "c"
+    }
 }
