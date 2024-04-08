@@ -6,113 +6,94 @@
 /*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 15:07:58 by agorski           #+#    #+#             */
-/*   Updated: 2024/04/03 02:09:56 by agorski          ###   ########.fr       */
+/*   Updated: 2024/04/08 21:43:55 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*ft_fill_word(const char *s, int start_word, int index)
+static void	ft_initvar(size_t *index, int *word_index, int *start_of_word)
 {
-	int		i;
-	char	*word;
-
-	i = 0;
-	word = malloc(sizeof(char) * (index - start_word + 1));
-	if (word == NULL)
-		return (NULL);
-	while (start_word < index)
-	{
-		word[i] = s[start_word];
-		i++;
-		start_word++;
-	}
-	word[i] = '\0';
-	return (word);
+	*index = 0;
+	*word_index = 0;
+	*start_of_word = -1;
 }
 
-static int	to_many_line(char const *s, int index, int word_index, char **split)
+static void	*ft_free_words(char **words, int count)
 {
 	int	i;
 
 	i = 0;
-	while (s[index] != '\0')
-	{
-		split[word_index] = malloc(ft_strlen(&s[index]) * sizeof(char) + 1);
-		if (!split[word_index])
-		{
-			i = 0;
-			while (split[i])
-			{
-				free(split[i]);
-				i++;
-			}
-			free(split);
-			return (-20);
-		}
-		split[word_index][i++] = s[index++];
-	}
-	split[word_index][i] = '\0';
-	return (index);
+	while (i < count)
+		free(words[i++]);
+	free(words);
+	return (NULL);
 }
 
-static char	**ft_words_alloc(char const *s, char c, char **split,
-		int start_word)
+static char	*ft_fill_word(const char *str, int start, int end)
 {
-	int	index;
-	int	word_index;
+	char	*word;
+	int		i;
 
-	index = 0;
-	word_index = 0;
-	while (s[index] != '\0')
+	i = 0;
+	word = malloc((end - start + 1) * sizeof(char));
+	if (!word)
+		return (NULL);
+	while (start < end)
 	{
-		if (start_word == -1 && s[index] != c)
-			start_word = index;
-		else if (ft_strchr(&s[index], c) == NULL && start_word != -1)
+		word[i] = str[start];
+		i++;
+		start++;
+	}
+	word[i] = 0;
+	return (word);
+}
+
+static int	ft_word_count(const char *str, char c)
+{
+	int	count;
+	int	trigger;
+
+	count = 0;
+	trigger = 0;
+	while (*str)
+	{
+		if (*str != c && trigger == 0)
 		{
-			index = to_many_line(s, index, word_index, split);
-			if (index == -20)
-				return (NULL);
+			trigger = 1;
+			count++;
 		}
-		else if (start_word != -1 && (s[index] == c || s[index + 1] == '\0'))
+		else if (*str == c)
+			trigger = 0;
+		str++;
+	}
+	return (count);
+}
+
+char	**ft_split(const char *s, char c)
+{
+	char	**result;
+	size_t	index;
+	int		word_index;
+	int		start_of_word;
+
+	ft_initvar(&index, &word_index, &start_of_word);
+	result = ft_calloc((ft_word_count(s, c) + 1), sizeof(char *));
+	if (!result)
+		return (NULL);
+	while (index <= ft_strlen(s))
+	{
+		if (s[index] != c && start_of_word < 0)
+			start_of_word = index;
+		else if ((s[index] == c || index == ft_strlen(s)) && start_of_word >= 0)
 		{
-			split[word_index++] = ft_fill_word(s, start_word, index);
-			start_word = -1;
+			result[word_index] = ft_fill_word(s, start_of_word, index);
+			if (!(result[word_index]))
+				return (ft_free_words(result, word_index));
+			start_of_word = -1;
+			word_index++;
 		}
 		index++;
 	}
-	return (split);
-}
-
-static int	ft_nbr_words(char const *s, char c)
-{
-	size_t	i;
-	int		num;
-
-	num = 0;
-	i = 0;
-	if (*s != c && *s != '\0')
-		num++;
-	while (*(s + i) != '\0')
-	{
-		if (*(s + i) == c && *(s + i + 1) != c && *(s + i + 1) != '\0')
-			num++;
-		i++;
-	}
-	return (num);
-}
-
-char	**ft_split(char const *s, char c)
-{
-	char	**split;
-	int		start_word;
-
-	start_word = -1;
-	if (s == NULL)
-		return (NULL);
-	split = (malloc)((ft_nbr_words(s, c) + 1) * (sizeof(char *)));
-	if (split == NULL)
-		return (NULL);
-	split[ft_nbr_words(s, c)] = NULL;
-	return (ft_words_alloc(s, c, split, start_word));
+	return (result);
 }

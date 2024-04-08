@@ -1,4 +1,112 @@
 
+// #include "libft.h"
+
+// static char	*ft_fill_word(const char *s, int start_word, int index)
+// {
+// 	int		i;
+// 	char	*word;
+
+// 	i = 0;
+// 	word = malloc(sizeof(char) * (index - start_word + 1));
+// 	if (word == NULL)
+// 		return (NULL);
+// 	while (start_word < index)
+// 	{
+// 		word[i] = s[start_word];
+// 		i++;
+// 		start_word++;
+// 	}
+// 	word[i] = '\0';
+// 	return (word);
+// }
+
+// static int	to_many_line(char const *s, int index, int word_index, char **split)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (s[index] != '\0')
+// 	{
+// 		split[word_index] = malloc(ft_strlen(&s[index]) * sizeof(char) + 1);
+// 		if (!split[word_index])
+// 		{
+// 			i = 0;
+// 			while (split[i])
+// 			{
+// 				free(split[i]);
+// 				i++;
+// 			}
+// 			free(split);
+// 			return (-20);
+// 		}
+// 		split[word_index][i++] = s[index++];
+// 	}
+// 	split[word_index][i] = '\0';
+// 	return (index);
+// }
+
+// static char	**ft_words_alloc(char const *s, char c, char **split,
+// 		int start_word)
+// {
+// 	int	index;
+// 	int	word_index;
+
+// 	index = 0;
+// 	word_index = 0;
+// 	while (s[index] != '\0')
+// 	{
+// 		if (start_word == -1 && s[index] != c)
+// 			start_word = index;
+// 		else if (ft_strchr(&s[index], c) == NULL && start_word != -1)
+// 		{
+// 			index = to_many_line(s, index, word_index, split);
+// 			if (index == -20)
+// 				return (NULL);
+// 		}
+// 		else if (start_word != -1 && (s[index] == c || s[index + 1] == '\0'))
+// 		{
+// 			split[word_index++] = ft_fill_word(s, start_word, index);
+// 			start_word = -1;
+// 		}
+// 		index++;
+// 	}
+// 	return (split);
+// }
+
+// static int	ft_nbr_words(char const *s, char c)
+// {
+// 	size_t	i;
+// 	int		num;
+
+// 	num = 0;
+// 	i = 0;
+// 	if (*s != c && *s != '\0')
+// 		num++;
+// 	while (*(s + i) != '\0')
+// 	{
+// 		if (*(s + i) == c && *(s + i + 1) != c && *(s + i + 1) != '\0')
+// 			num++;
+// 		i++;
+// 	}
+// 	return (num);
+// }
+
+// char	**ft_split(char const *s, char c)
+// {
+// 	char	**split;
+// 	int		start_word;
+
+// 	start_word = -1;
+// 	if (s == NULL)
+// 		return (NULL);
+// 	split = (malloc)((ft_nbr_words(s, c) + 1) * (sizeof(char *)));
+// 	if (split == NULL)
+// 		return (NULL);
+// 	split[ft_nbr_words(s, c)] = NULL;
+// 	return (ft_words_alloc(s, c, split, start_word));
+// }
+
+
 int main ()
 {
 	char	**arr;
