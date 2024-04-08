@@ -6,7 +6,7 @@
 /*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:47:54 by agorski           #+#    #+#             */
-/*   Updated: 2024/04/04 18:37:07 by agorski          ###   ########.fr       */
+/*   Updated: 2024/04/07 14:40:45 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 t_list	*ft_lstnew(void *content)
 {
-	t_list *lstnew;
+	t_list	*lstnew;
+
 	lstnew = malloc(sizeof(t_list));
 	if (lstnew == NULL)
 		return (NULL);
@@ -28,5 +29,5 @@ t_list	*ft_lstnew(void *content)
 // {
 // 	t_list *new = ft_lstnew("test");
 // 	printf("%s\n", (char *)new->content);
-// 	return 0;
+// 	return (0);
 // }

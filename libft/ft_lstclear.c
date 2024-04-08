@@ -3,11 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agorski <agorski@student.42warsaw.pl>      +#+  +:+       +#+        */
+/*   By: agorski <agorski@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 01:26:37 by agorski           #+#    #+#             */
-/*   Updated: 2024/04/07 01:26:57 by agorski          ###   ########.fr       */
+/*   Updated: 2024/04/08 10:48:00 by agorski          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_lstclear(t_list **lst, void (*del)(void *));
+void	ft_lstclear(t_list **lst, void (*del)(void *))
+{
+	return ;
+}
