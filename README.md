@@ -1,4 +1,4 @@
-<p><strong>Libft</strong>&nbsp;--&nbsp;<strong>Your Very First Own Library</strong></p>
+<h2><p><strong>Libft</strong>&nbsp;--&nbsp;<strong>Your Very First Own Library</strong></p></h2>h2>
 <p><strong>Project Description</strong></p>
 <p>In most 42 projects, we are not allowed to use any of the standard C library functions. Therefore, the objective of this initial project is to recreate some of these standard functions ourselves, along with some additional ones.</p>
 <p>We are tasked with building a library that we will be able to use in our future projects.</p>
