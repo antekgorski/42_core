@@ -1,4 +1,4 @@
-#Libft
+Libft
 This project is designed to help you code a C library of common functions that you will be able to utilize in your future projects.
 
 Project Description
